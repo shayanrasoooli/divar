@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { getCategory } from "../../../services/admin"
 import { useSearchParams } from "react-router-dom"
 import { useState } from "react"
+import styles from "./addPost.module.css"
 
 function AddPost() {
   const [form , setForm] = useState({
@@ -31,7 +32,7 @@ function AddPost() {
 
   return (
     <div>
-      <form  onChange={changeHandler}>
+      <form className={styles.form}  onChange={changeHandler}>
       <h3>ثبت آگهی</h3>
       <label htmlFor="title">عنوان :</label>
       <input type="text" name="title" id="title" />
