@@ -1,15 +1,37 @@
 import { useQuery } from "@tanstack/react-query"
 import { getCategory } from "../../../services/admin"
+import { useSearchParams } from "react-router-dom"
+import { useState } from "react"
 
 function AddPost() {
+  const [form , setForm] = useState({
+    title: "" , 
+    content : "" ,
+    category : "" ,
+    city : "" ,
+    amount : null ,
+    images: null
+  })
   const {data } = useQuery(["get-categories"] , getCategory)
 
   const addHandler = event => {
     event.preventDefault();
+    console.log(form);
   }
+
+  const changeHandler = event => {
+    const name = event.target.name;
+    if (name !== "images") {
+      setForm({...form ,  [name] : event.target.value })
+    }else{
+        setForm({...form , [name] : event.target.files[0]})
+    }
+  }
+
+
   return (
     <div>
-      <form className={style.form} onChange={changeHandler}>
+      <form  onChange={changeHandler}>
       <h3>ثبت آگهی</h3>
       <label htmlFor="title">عنوان :</label>
       <input type="text" name="title" id="title" />
