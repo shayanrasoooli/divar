@@ -1,8 +1,11 @@
 import React from 'react'
+import AddPost from '../components/template/AddPost'
 
 function DashboardPage() {
   return (
-    <div>DashboardPage</div>
+    <div>
+      <AddPost />
+    </div>
   )
 }
 
