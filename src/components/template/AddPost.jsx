@@ -5,6 +5,7 @@ import { useState } from "react"
 import styles from "./addPost.module.css"
 import { getCookie } from "../../../utils/cookie"
 import axios from "axios"
+import toast, { Toaster } from "react-hot-toast"
 
 function AddPost() {
   const [form , setForm] = useState({
@@ -27,8 +28,8 @@ function AddPost() {
     axios.post(`http://localhost:3400/post/create` , formData , {
       headers : {"Content-Type" : "multipart/form-data" , Authorization : `bearer ${token}`}
     })
-    .then(res => console.log(res))
-    .catch((error) => console.log(error))
+    .then(res => toast.success(res.data.message))
+    .catch((error) => toast.error("مشکلی پیش امده است"))
     console.log(formData);
   }
 
@@ -65,6 +66,7 @@ function AddPost() {
       <label htmlFor="file">عکس :</label>
       <input type="file" name="images" id="images" />
       <button onClick={addHandler}>ایجاد</button>
+      <Toaster/>
     </form>
     </div>
   )
