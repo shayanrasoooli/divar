@@ -3,6 +3,8 @@ import { getCategory } from "../../../services/admin"
 import { useSearchParams } from "react-router-dom"
 import { useState } from "react"
 import styles from "./addPost.module.css"
+import { getCookie } from "../../../utils/cookie"
+import axios from "axios"
 
 function AddPost() {
   const [form , setForm] = useState({
@@ -17,7 +19,17 @@ function AddPost() {
 
   const addHandler = event => {
     event.preventDefault();
-    console.log(form);
+    const formData = new FormData()
+    for (let i in form) {
+        formData.append(i , form[i])
+    }
+    const token = getCookie("accessToken");
+    axios.post(`http://localhost:3400/post/create` , formData , {
+      headers : {"Content-Type" : "multipart/form-data" , Authorization : `bearer ${token}`}
+    })
+    .then(res => console.log(res))
+    .catch((error) => console.log(error))
+    console.log(formData);
   }
 
   const changeHandler = event => {
