@@ -1,6 +1,5 @@
-import React from 'react'
 
-function Main() {
+function Main({post}) {
   return (
     <div>Main</div>
   )
